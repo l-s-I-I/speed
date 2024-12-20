@@ -10,13 +10,12 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-# إيقاف أي عملية تستخدم بورت 443
-echo -e "${RED}Checking and stopping processes using port 443...${NC}"
-sudo fuser -k 443/tcp > /dev/null 2>&1
-if [ $? -eq 0 ]; then
-    echo -e "${GREEN}Port 443 is now free for use.${NC}"
+# تحقق من أن بورت 443 أصبح غير مستخدم
+if sudo lsof -i :443 > /dev/null; 
+    echo -e "${RED}Port 443 is still in use. Exiting...${NC}"
+    exit 1
 else
-    echo -e "${RED}No process was found using port 443.${NC}"
+    echo -e "${GREEN}Port 443 is now free for use.${NC}"
 fi
 
 clear
