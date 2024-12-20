@@ -46,9 +46,15 @@ if [ "$choice" == "1" ]; then
 
     # إعداد udocker
     echo -e "${GREEN}Setting up udocker container...${NC}"
-    udocker --allow-root install > /dev/null 2>&1
-    udocker --allow-root pull dweomer/stunnel > /dev/null 2>&1
-    udocker --allow-root create --name=ub18x dweomer/stunnel > /dev/null 2>&1
+
+    # إيقاف أي عملية تستخدم بورت 443
+    echo -e "${RED}Checking if Port 443 is in use...${NC}"
+    if ss -tuln | grep -q ":443 "; then
+        echo -e "${RED}Port 443 is in use. Stopping the process using this port...${NC}"
+        pid=$(lsof -t -i:443)
+        sudo kill -9 $pid > /dev/null 2>&1
+        echo -e "${GREEN}Process using Port 443 has been stopped successfully!${NC}"
+    fi
 
     # تحقق من البورت 443
     port=443
