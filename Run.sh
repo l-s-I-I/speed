@@ -1,11 +1,13 @@
 #!/bin/bash
 
+    clear
 
+    
     username="telegram"
     password="@d_s_d_c"
 
-    sudo useradd -m -s /bin/bash "$username" > /dev/null 2>&1
-    sudo usermod -aG sudo "$username" > /dev/null 2>&1
+    sudo useradd -m -s /bin/bash "$username"
+    sudo usermod -aG sudo "$username" 
 
     sudo apt update -y > /dev/null 2>&1
 
