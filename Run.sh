@@ -29,10 +29,10 @@ if [ "$choice" == "1" ]; then
         read -p "Enter your choice (1 or 2): " port_choice
     
         if [ "$port_choice" == "1" ]; then
-            # استخراج PID من netstat
-            pid=$(sudo netstat -tulnp | grep :443 | awk '{print $7}' | cut -d'/' -f1)
-            sudo kill -9 "$pid"
+        
+            sudo fuser -k 443/tcp
             echo -e "${GREEN}Port 443 has been freed successfully!${NC}"
+            
         elif [ "$port_choice" == "2" ]; then
             read -p "Enter the new port to use: " port
         else
