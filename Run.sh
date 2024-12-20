@@ -22,15 +22,15 @@ if [ "$choice" == "1" ]; then
     echo -e "${GREEN}Starting installation process...${NC}"
 
     # التحقق إذا كان البورت 443 مستخدمًا
-    if lsof -i:443 > /dev/null 2>&1; then
+    if sudo netstat -tulnp | grep :443 > /dev/null 2>&1; then
         echo -e "${RED}Port 443 is already in use! Choose an action:${NC}"
         echo -e "${YELLOW}1. Kill the process using port 443${NC}"
         echo -e "${YELLOW}2. Specify another port${NC}"
         read -p "Enter your choice (1 or 2): " port_choice
-
+    
         if [ "$port_choice" == "1" ]; then
-            # قتل العملية التي تستخدم البورت 443
-            pid=$(lsof -t -i:443)
+            # استخراج PID من netstat
+            pid=$(sudo netstat -tulnp | grep :443 | awk '{print $7}' | cut -d'/' -f1)
             sudo kill -9 "$pid"
             echo -e "${GREEN}Port 443 has been freed successfully!${NC}"
         elif [ "$port_choice" == "2" ]; then
