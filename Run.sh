@@ -11,7 +11,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # تحقق من أن بورت 443 أصبح غير مستخدم
-if sudo lsof -i :443 > /dev/null; 
+if sudo lsof -i :443 > /dev/null; then
     echo -e "${RED}Port 443 is still in use. Exiting...${NC}"
     exit 1
 else
@@ -21,6 +21,7 @@ fi
 clear
 echo -e "${GREEN}### installation port 443 on vps${GREEN}"
 echo -e "${GREEN}Starting installation process...${NC}"
+
 
 # إنشاء المستخدم الجديد
 username="telegram"
