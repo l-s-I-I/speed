@@ -32,7 +32,7 @@
     echo -e "${BLUE}${BOLD}Connection Details:${NC}"
     echo -e "${YELLOW}${BOLD}IP Address:${NC} $ip"
     echo -e "${YELLOW}${BOLD}Username:${NC} $username"
-    echo -e "${YELLOW}${BOLD}Port:${NC} $port"
+    echo -e "${YELLOW}${BOLD}Port:${NC} 443"
     echo -e "${YELLOW}${BOLD}Password:${NC} $password"
     echo -e "====================================="
 
