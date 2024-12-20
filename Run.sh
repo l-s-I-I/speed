@@ -34,12 +34,11 @@ if [ "$choice" == "1" ]; then
     sudo apt install -y python3-pip python3-venv
     
     echo "Setting up Python virtual environment..."
-    sudo -u "$username" bash -c "
-        python3 -m venv myenv
-        source myenv/bin/activate
-    "
+    sudo -u "$username"
 
     echo "Installing udocker..."
+    python3 -m venv myenv
+    source myenv/bin/activate
     pip3 install udocker
     
     echo "Installing and setting up udocker container..."
