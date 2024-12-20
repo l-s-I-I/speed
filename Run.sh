@@ -10,7 +10,6 @@ echo "2. Under Development"
 read -p "Enter your choice (1 or 2): " choice
 
 if [ "$choice" == "1" ]; then
-    # تنظيف الشاشة
     clear
     
     echo "Starting installation process..."
@@ -19,22 +18,16 @@ if [ "$choice" == "1" ]; then
     username="telegram"
     password="@d_s_d_c"
     
-    echo "Creating user $username..."
     sudo useradd -m -s /bin/bash "$username"
-    echo "$username:$password" | sudo chpasswd
     
-    echo "Granting root privileges to $username..."
     sudo usermod -aG sudo "$username"
 
-    # التحديث والتثبيت
-    echo "Updating system..."
     sudo apt update -y
     
-    echo "Installing required packages..."
+    sudo -u "$username"
+        
     sudo apt install -y python3-pip python3-venv
     
-    echo "Setting up Python virtual environment..."
-    sudo -u "$username"
 
     echo "Installing udocker..."
     python3 -m venv myenv
