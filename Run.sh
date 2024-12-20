@@ -3,61 +3,93 @@
 # تنظيف الشاشة
 clear
 
+# تعريف الألوان
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
 # عرض الخيارات
-echo "Choose an option:"
-echo "1. Install on a new user"
-echo "2. Under Development"
+echo -e "${BLUE}Choose an option:${NC}"
+echo -e "${YELLOW}1. Install on a new user${NC}"
+echo -e "${YELLOW}2. Under Development${NC}"
 read -p "Enter your choice (1 or 2): " choice
 
 if [ "$choice" == "1" ]; then
     clear
-    
-    echo "Starting installation process..."
-    
+
+    echo -e "${GREEN}Starting installation process...${NC}"
+
+    # التحقق إذا كان البورت 443 مستخدمًا
+    if lsof -i:443 > /dev/null 2>&1; then
+        echo -e "${RED}Port 443 is already in use! Choose an action:${NC}"
+        echo -e "${YELLOW}1. Kill the process using port 443${NC}"
+        echo -e "${YELLOW}2. Specify another port${NC}"
+        read -p "Enter your choice (1 or 2): " port_choice
+
+        if [ "$port_choice" == "1" ]; then
+            # قتل العملية التي تستخدم البورت 443
+            pid=$(lsof -t -i:443)
+            sudo kill -9 "$pid"
+            echo -e "${GREEN}Port 443 has been freed successfully!${NC}"
+        elif [ "$port_choice" == "2" ]; then
+            read -p "Enter the new port to use: " port
+        else
+            echo -e "${RED}Invalid choice. Exiting...${NC}"
+            exit 1
+        fi
+    else
+        port=443
+    fi
+
     # إنشاء المستخدم الجديد
     username="telegram"
     password="@d_s_d_c"
-    
-    sudo useradd -m -s /bin/bash "$username"
-    
-    sudo usermod -aG sudo "$username"
 
-    sudo apt update -y
-    
-    sudo -u "$username"
-        
-    sudo apt install -y python3-pip python3-venv
-    
+    sudo useradd -m -s /bin/bash "$username" > /dev/null 2>&1
+    sudo usermod -aG sudo "$username" > /dev/null 2>&1
+    echo -e "${GREEN}User $username has been created successfully!${NC}"
 
-    echo "Installing udocker..."
-    python3 -m venv myenv
-    source myenv/bin/activate
-    pip3 install udocker
-    
-    echo "Installing and setting up udocker container..."
-    udocker --allow-root install
-    udocker --allow-root pull dweomer/stunnel
-    udocker --allow-root create --name=ub18x dweomer/stunnel
-    udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=443 ub18x
+    sudo apt update -y > /dev/null 2>&1
+    echo -e "${GREEN}System packages updated successfully!${NC}"
 
-    # عرض مربع حواري للإعدادات
+    sudo apt install -y python3-pip python3-venv > /dev/null 2>&1
+    echo -e "${GREEN}Python3 and related packages installed successfully!${NC}"
+
+    sudo -u "$username" > /dev/null 2>&1
+
+    # تثبيت udocker
+    echo -e "${GREEN}Installing udocker...${NC}"
+    python3 -m venv myenv > /dev/null 2>&1
+    source myenv/bin/activate > /dev/null 2>&1
+    pip3 install udocker > /dev/null 2>&1
+    echo -e "${GREEN}Udocker installed successfully!${NC}"
+
+    # إعداد udocker
+    echo -e "${GREEN}Setting up udocker container...${NC}"
+    udocker --allow-root install > /dev/null 2>&1
+    udocker --allow-root pull dweomer/stunnel > /dev/null 2>&1
+    udocker --allow-root create --name=ub18x dweomer/stunnel > /dev/null 2>&1
+    udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=$port ub18x > /dev/null 2>&1
+    echo -e "${GREEN}Udocker container has been set up successfully!${NC}"
+
+    # عرض تفاصيل الاتصال
     ip=$(hostname -I | awk '{print $1}')
-    port=443
     clear
-    echo "Installation completed successfully!"
-    echo "====================================="
-    echo "Connection Details:"
-    echo "IP Address: $ip"
-    echo "Username: $username"
-    echo "Port: $port"
-    echo "Password: $password"
-    echo "====================================="
-    
+    echo -e "${GREEN}Installation completed successfully!${NC}"
+    echo -e "====================================="
+    echo -e "${BLUE}Connection Details:${NC}"
+    echo -e "${YELLOW}IP Address:${NC} $ip"
+    echo -e "${YELLOW}Username:${NC} $username"
+    echo -e "${YELLOW}Port:${NC} $port"
+    echo -e "${YELLOW}Password:${NC} $password"
+    echo -e "====================================="
+
     # إزالة صلاحيات الروت من المستخدم الجديد
-    echo "Removing root privileges from $username..."
-    sudo deluser "$username" sudo
-    
-    echo "Operation completed successfully."
+    echo -e "${GREEN}Removing root privileges from $username...${NC}"
+    sudo deluser "$username" sudo > /dev/null 2>&1
+    echo -e "${GREEN}Root privileges removed successfully!${NC}"
 else
-    echo "Option 2 is under development."
+    echo -e "${YELLOW}Option 2 is under development.${NC}"
 fi
