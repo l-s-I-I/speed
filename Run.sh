@@ -11,7 +11,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # عرض الخيارات
-echo -e "${BLUE}Choose an option:${NC}"
+echo -e "${BLUE}Choose an option1:${NC}"
 echo -e "${YELLOW}1. Install on a new user${NC}"
 echo -e "${YELLOW}2. Under Development${NC}"
 read -p "Enter your choice (1 or 2): " choice
