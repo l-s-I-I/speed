@@ -3,7 +3,7 @@
 
 
 
-# الامر الي هتستخدمه :- 
+# الامر الي هتستخدمه :- ```علي Ubuntu فقط #حاليا```
 ```
 bash <(curl -s https://raw.githubusercontent.com/l-s-I-I/speed/main/Run.sh)
 ```
