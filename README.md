@@ -7,4 +7,4 @@
 ```
 bash <(curl -s https://raw.githubusercontent.com/l-s-I-I/speed/main/Run.sh)
 ```
-# by :- l_s_I_I.T.ME([_s_I_I.T.ME](https://t.me/l_s_I_I))
+# by :- ([ l_s_I_I.T.ME](https://t.me/l_s_I_I))
