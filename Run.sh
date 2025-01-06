@@ -239,7 +239,7 @@ country_vps_flag() {
 }
 
 # Get full country name and flag using the country code
-COUNTRY_VPS_AND_FLAG=$(country_to_name_and_flag $COUNTRY_CODE)
+COUNTRY_VPS_AND_FLAG=$(country_vps_flag $COUNTRY_CODE)
 
 echo -e "\033[1;32m##########################################################\033[0m"
 echo -e "\033[1;31m# This script supports PTTO 443 on VPS one-line Command! #\033[0m"
