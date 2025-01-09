@@ -255,11 +255,8 @@ echo -e "\033[1;32mStart √ \033[0m"
 
 echo "-----------------------------------------------------------------------------------"
 
-
-# اسم الملف الذي سيحتوي على المخرجات
 LOG_FILE="$(pwd)/log.txt"
 
-#------------ Speed Section --------------#
 
 #-------- البيه االافتراضيه --------#
 echo -e "\033[1;33m#Command Run ====> sudo apt install -y python3-venv socat \033[0m"
@@ -289,9 +286,6 @@ fi
 echo -e "\033[1;33m#Command Run ====> echo \"$User:$Pass\" | chpasswd \033[0m"
 echo "$User:$Pass" | chpasswd >> $LOG_FILE 2>&1
 
-echo "echo 'Hello, you have successfully connected to the Config channel: D_S_D_C.T.ME'" >> /home/telegram/.bashrc
-source /home/telegram/.bashrc
-
 
 #-------- أمر تفعيل الحاويه و بورت 443 -------#
 echo -e "\033[1;33m#Command Run ====> udocker --allow-root install \033[0m"
@@ -309,28 +303,26 @@ OUTPUT=$(udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.
 
 sleep 5
 
-echo -e "\033[1;33m# Status: Docker container running in the background \033[0m" >> $LOG_FILE
-
 #------ أمر إضافي لدعم UDP عبر socat -------#
-echo -e "\033[1;33m#Command Run ====> sudo socat UDP-LISTEN:7300,reuseaddr,fork TCP:127.0.0.1:443 *Beta \033[0m"
-sudo socat UDP-LISTEN:7300,reuseaddr,fork TCP:127.0.0.1:443 >> $LOG_FILE 2>&1 &
+echo -e "\033[1;33m#Command Run ====> docker run --name badvpn-udpgw -d -t --restart=always -p 127.0.0.1:7300:7300 zlainsama/badvpn-udpgw-docker \033[0m"
+docker run --name badvpn-udpgw -d -t --restart=always -p 127.0.0.1:7300:7300 zlainsama/badvpn-udpgw-docker >> $LOG_FILE 2>&1 &
 
-echo "UDP support enabled via socat on port 7300." >> $LOG_FILE 2>&1
 
 echo "-----------------------------------------------------------------------------------"
 echo ""
-echo -e "\033[1;32m╔════════════════════\033[0m"
+echo -e "\033[1;32m========== SSH Account ==========\033[0m"
 echo -e "\033[38;5;28m# CHANNEL URL:- \033[1;34mD_S_D_C.T.ME\033[0m"
 echo -e "\033[1;33m# VPS Country:- $COUNTRY_VPS_AND_FLAG \033[0m"
-echo -e "\033[1;33m# IP & port:- $IP_ADDRESS & $port \033[0m"
-echo -e "\033[1;33m# User:- $User \033[0m"
-echo -e "\033[1;33m# Pass:- $Pass \033[0m"
-echo -e "\033[1;33m# line one:- $IP_ADDRESS:$port@$User:$Pass ==> $(country_vps_flag $COUNTRY_CODE)  \033[0m"
-echo -e "\033[1;32m╚════════════════════\033[0m"
+echo -e "\033[1;33m• IP Address:- $IP_ADDRESS \033[0m"
+echo -e "\033[1;33m• port :- $port \033[0m"
+echo -e "\033[1;33m• User:- $User \033[0m"
+echo -e "\033[1;33m• Pass:- $Pass \033[0m"
+echo -e "\033[1;33m• line one:- $IP_ADDRESS:$port@$User:$Pass ==> $(country_vps_flag $COUNTRY_CODE)  \033[0m"
+echo -e "\033[1;32m====== DEV:-ᔆ ᴾ ᴱ ᴱ ᴰ ™ ⌁🇵🇸=======033[0m"
 echo ""
 echo "-----------------------------------------------------------------------------------"
 echo -e "\033[38;5;28m# DEV:- \033[1;34ml_s_I_I.T.ME\033[0m"
-echo -e "\033[1;32m# Script V ==> 1.3 √ \033[0m"
+echo -e "\033[1;32m# Script V ==> 2.0 √ \033[0m"
 echo "-----------------------------------------------------------------------------------"
 
 
