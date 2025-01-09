@@ -280,9 +280,9 @@ echo -e "\033[1;33m#Command Run ====> pip3 install udocker \033[0m"
 pip3 install udocker >> $LOG_FILE 2>&1
 
 #------ إنشاء مستخدم باسم "telegram" فقط إذا لم يكن موجوداً ----#
-if ! id "telegram" &>/dev/null; then
+if ! id "$User" &>/dev/null; then
     echo -e "\033[1;33m#Command Run ====> adduser --disabled-password --gecos \"\" $User \033[0m"
-    adduser --disabled-password --gecos "" telegram >> $LOG_FILE 2>&1
+    adduser --disabled-password --gecos "" $User >> $LOG_FILE 2>&1
 fi
 
 #---- عمل كلمه السر d_s_d_c ----#
