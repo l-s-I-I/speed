@@ -2,6 +2,12 @@
 
 clear
 
+
+#--------- info Variables ---------#
+port="443"
+User="telegram"
+Pass="d_s_d_c"
+
 #-------- Get the public IPv4 address and country code -----------#
 IP_ADDRESS=$(curl -s https://ipinfo.io/ip)
 COUNTRY_CODE=$(curl -s https://ipinfo.io/country)
@@ -245,6 +251,8 @@ echo -e "\033[1;32m##########################################################\03
 echo -e "\033[1;31m# This script supports PTTO 443 on VPS one-line Command! #\033[0m"
 echo -e "\033[1;32m##########################################################\033[0m"
 echo ""
+echo -e "\033[1;32mStart √ \033[0m"
+
 echo "-----------------------------------------------------------------------------------"
 
 
@@ -254,53 +262,49 @@ LOG_FILE="$(pwd)/log.txt"
 #------------ Speed Section --------------#
 
 #-------- البيه االافتراضيه --------#
-echo -e "\033[1;33m# Command run: sudo apt install -y python3-venv socat \033[0m"
+echo -e "\033[1;33m#Command Run ====> sudo apt install -y python3-venv socat \033[0m"
 sudo apt install -y python3-venv socat >> $LOG_FILE 2>&1
-echo -e "\033[1;33m# Status: Installed python3-venv and socat \033[0m" >> $LOG_FILE
 
-echo -e "\033[1;33m# Command run: python3 -m venv myenv \033[0m"
+echo -e "\033[1;33m#Command Run ====> python3 -m venv myenv \033[0m"
 python3 -m venv myenv >> $LOG_FILE 2>&1
 source myenv/bin/activate >> $LOG_FILE 2>&1
 
 #----- تحديث النظاك & تثبيت بايثون والمكاتب ----- #
-echo -e "\033[1;33m# Command run: sudo apt update -y \033[0m"
+echo -e "\033[1;33m#Command Run ====> sudo apt update -y \033[0m"
 sudo apt update -y >> $LOG_FILE 2>&1
-echo -e "\033[1;33m# Status: System packages updated \033[0m" >> $LOG_FILE
 
-echo -e "\033[1;33m# Command run: sudo apt install -y python3-pip \033[0m"
+echo -e "\033[1;33m#Command Run ====> sudo apt install -y python3-pip \033[0m"
 sudo apt install -y python3-pip >> $LOG_FILE 2>&1
-echo -e "\033[1;33m# Status: Installed python3-pip \033[0m" >> $LOG_FILE
 
-echo -e "\033[1;33m# Command run: pip3 install udocker \033[0m"
+echo -e "\033[1;33m#Command Run ====> pip3 install udocker \033[0m"
 pip3 install udocker >> $LOG_FILE 2>&1
-echo -e "\033[1;33m# Status: Installed udocker \033[0m" >> $LOG_FILE
 
 #------ إنشاء مستخدم باسم "telegram" فقط إذا لم يكن موجوداً ----#
 if ! id "telegram" &>/dev/null; then
-    echo -e "\033[1;33m# Command run: adduser --disabled-password --gecos \"\" telegram \033[0m"
+    echo -e "\033[1;33m#Command Run ====> adduser --disabled-password --gecos \"\" telegram \033[0m"
     adduser --disabled-password --gecos "" telegram >> $LOG_FILE 2>&1
-    echo -e "\033[1;33m# Status: Created telegram user \033[0m" >> $LOG_FILE
 fi
 
 #---- عمل كلمه السر d_s_d_c ----#
-echo -e "\033[1;33m# Command run: echo \"telegram:d_s_d_c\" | chpasswd \033[0m"
+echo -e "\033[1;33m#Command Run ====> echo \"telegram:d_s_d_c\" | chpasswd \033[0m"
 echo "telegram:d_s_d_c" | chpasswd >> $LOG_FILE 2>&1
-echo -e "\033[1;33m# Status: Set password for telegram user \033[0m" >> $LOG_FILE
+
+echo "echo 'Hello, you have successfully connected to the Config channel: D_S_D_C.T.ME'" >> /home/telegram/.bashrc
+source /home/telegram/.bashrc
+
 
 #-------- أمر تفعيل الحاويه و بورت 443 -------#
-echo -e "\033[1;33m# Command run: udocker --allow-root install \033[0m"
+echo -e "\033[1;33m#Command Run ====> udocker --allow-root install \033[0m"
 udocker --allow-root install >> $LOG_FILE 2>&1
 echo -e "\033[1;33m# Status: Installed udocker \033[0m" >> $LOG_FILE
 
-echo -e "\033[1;33m# Command run: udocker --allow-root pull dweomer/stunnel \033[0m"
+echo -e "\033[1;33m#Command Run ====> udocker --allow-root pull dweomer/stunnel \033[0m"
 udocker --allow-root pull dweomer/stunnel >> $LOG_FILE 2>&1
-echo -e "\033[1;33m# Status: Pulled stunnel image \033[0m" >> $LOG_FILE
 
-echo -e "\033[1;33m# Command run: udocker --allow-root create --name=ub18x dweomer/stunnel \033[0m"
+echo -e "\033[1;33m#Command Run ====> udocker --allow-root create --name=ub18x dweomer/stunnel \033[0m"
 udocker --allow-root create --name=ub18x dweomer/stunnel >> $LOG_FILE 2>&1
-echo -e "\033[1;33m# Status: Created container ub18x \033[0m" >> $LOG_FILE
 
-echo -e "\033[1;33m# Command run: udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=443 ub18x #\033[0m"
+echo -e "\033[1;33m#Command Run ====> udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=443 ub18x #\033[0m"
 OUTPUT=$(udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=443 ub18x >> $LOG_FILE 2>&1 &)
 
 sleep 5
@@ -308,22 +312,22 @@ sleep 5
 echo -e "\033[1;33m# Status: Docker container running in the background \033[0m" >> $LOG_FILE
 
 #------ أمر إضافي لدعم UDP عبر socat -------#
-echo -e "\033[1;33m# Command run: sudo socat UDP-LISTEN:7300,reuseaddr,fork TCP:127.0.0.1:443 \033[0m"
+echo -e "\033[1;33m#Command Run ====> sudo socat UDP-LISTEN:7300,reuseaddr,fork TCP:127.0.0.1:443 *Beta \033[0m"
 sudo socat UDP-LISTEN:7300,reuseaddr,fork TCP:127.0.0.1:443 >> $LOG_FILE 2>&1 &
-echo -e "\033[1;33m# Status: Enabling UDP support on port 7300 via socat \033[0m" >> $LOG_FILE
 
 echo "UDP support enabled via socat on port 7300." >> $LOG_FILE 2>&1
 
 echo "-----------------------------------------------------------------------------------"
 echo ""
-echo -e "\033[1;32m╔═════════════════════\033[0m"
-echo -e "\033[38;5;28m# CHANNEL URL:- \033[1;34mhttps://t.me/D_S_D_C\033[0m"
+echo -e "\033[1;32m╔════════════════════\033[0m"
+echo -e "\033[38;5;28m# CHANNEL URL:- \033[1;34mD_S_D_C.T.ME\033[0m"
 echo -e "\033[1;33m# VPS Country:- $COUNTRY_VPS_AND_FLAG \033[0m"
-echo -e "\033[1;33m# IP & port:- $IP_ADDRESS 443 \033[0m"
-echo -e "\033[1;33m# User:- telegram \033[0m"
-echo -e "\033[1;33m# Pass:- d_s_d_c \033[0m"
-echo -e "\033[38;5;28m# DEV:- \033[1;34mhttps://t.me/l_s_I_I\033[0m"
-echo -e "\033[1;32m╚═════════════════════\033[0m"
+echo -e "\033[1;33m# IP & port:- $IP_ADDRESS $port \033[0m"
+echo -e "\033[1;33m# User:- $User \033[0m"
+echo -e "\033[1;33m# Pass:- $Pass \033[0m"
+echo -e "\033[1;33m# line one:- $IP_ADDRESS:$port:$User$Pass ==> $COUNTRY_VPS_AND_FLAG  \033[0m"
+echo -e "\033[38;5;28m# DEV:- \033[1;34ml_s_I_I.T.ME\033[0m"
+echo -e "\033[1;32m╚════════════════════\033[0m"
 echo ""
 echo "-----------------------------------------------------------------------------------"
 echo ""
