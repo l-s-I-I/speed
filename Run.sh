@@ -286,6 +286,26 @@ fi
 echo -e "\033[1;33m#Command Run ====> echo \"$User:$Pass\" | chpasswd \033[0m"
 echo "$User:$Pass" | chpasswd >> $LOG_FILE 2>&1
 
+#-------- إعداد SSH Banner --------#
+echo -e "\033[1;33m#Command Run ====> Configuring SSH Banner \033[0m"
+BANNER_FILE="/etc/mybanner"
+SSH_CONFIG="/etc/ssh/sshd_config"
+
+# Create the banner file
+echo -e "------------------------------------------------------------\n" >> $BANNER_FILE
+echo -e "Developer :- l_s_I_I.t.me !\n" >> $BANNER_FILE
+echo -e "The connection has been successful. script This supports udpgw !\n" >> $BANNER_FILE
+echo -e "------------------------------------------------------------" >> $BANNER_FILE
+
+# Set banner directive in sshd_config
+if ! grep -q "^Banner $BANNER_FILE" $SSH_CONFIG; then
+    echo "Banner $BANNER_FILE" >> $SSH_CONFIG
+fi
+
+# Restart SSH service to apply changes
+echo -e "\033[1;33m#Command Run ====> Restarting SSH service \033[0m"
+sudo systemctl restart sshd >> $LOG_FILE 2>&1
+
 
 #-------- أمر تفعيل الحاويه و بورت 443 -------#
 echo -e "\033[1;33m#Command Run ====> udocker --allow-root install \033[0m"
@@ -318,7 +338,7 @@ echo -e "\033[1;33m• port :- $port \033[0m"
 echo -e "\033[1;33m• User:- $User \033[0m"
 echo -e "\033[1;33m• Pass:- $Pass \033[0m"
 echo -e "\033[1;33m• line one:- $IP_ADDRESS:$port@$User:$Pass ==> $(country_vps_flag $COUNTRY_CODE)  \033[0m"
-echo -e "\033[1;32m====== DEV:-ᔆ ᴾ ᴱ ᴱ ᴰ ™ ⌁🇵🇸=======033[0m"
+echo -e "\033[1;32m====== DEV:-ᔆ ᴾ ᴱ ᴱ ᴰ ™ ⌁ 🇵🇸=======033[0m"
 echo ""
 echo "-----------------------------------------------------------------------------------"
 echo -e "\033[38;5;28m# DEV:- \033[1;34ml_s_I_I.T.ME\033[0m"
