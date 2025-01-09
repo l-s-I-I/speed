@@ -281,13 +281,13 @@ pip3 install udocker >> $LOG_FILE 2>&1
 
 #------ إنشاء مستخدم باسم "telegram" فقط إذا لم يكن موجوداً ----#
 if ! id "telegram" &>/dev/null; then
-    echo -e "\033[1;33m#Command Run ====> adduser --disabled-password --gecos \"\" telegram \033[0m"
+    echo -e "\033[1;33m#Command Run ====> adduser --disabled-password --gecos \"\" $User \033[0m"
     adduser --disabled-password --gecos "" telegram >> $LOG_FILE 2>&1
 fi
 
 #---- عمل كلمه السر d_s_d_c ----#
-echo -e "\033[1;33m#Command Run ====> echo \"telegram:d_s_d_c\" | chpasswd \033[0m"
-echo "telegram:d_s_d_c" | chpasswd >> $LOG_FILE 2>&1
+echo -e "\033[1;33m#Command Run ====> echo \"$User:$Pass\" | chpasswd \033[0m"
+echo "$User:$Pass" | chpasswd >> $LOG_FILE 2>&1
 
 echo "echo 'Hello, you have successfully connected to the Config channel: D_S_D_C.T.ME'" >> /home/telegram/.bashrc
 source /home/telegram/.bashrc
@@ -322,14 +322,14 @@ echo ""
 echo -e "\033[1;32m╔════════════════════\033[0m"
 echo -e "\033[38;5;28m# CHANNEL URL:- \033[1;34mD_S_D_C.T.ME\033[0m"
 echo -e "\033[1;33m# VPS Country:- $COUNTRY_VPS_AND_FLAG \033[0m"
-echo -e "\033[1;33m# IP & port:- $IP_ADDRESS $port \033[0m"
+echo -e "\033[1;33m# IP & port:- $IP_ADDRESS & $port \033[0m"
 echo -e "\033[1;33m# User:- $User \033[0m"
 echo -e "\033[1;33m# Pass:- $Pass \033[0m"
-echo -e "\033[1;33m# line one:- $IP_ADDRESS:$port:$User$Pass ==> $COUNTRY_VPS_AND_FLAG  \033[0m"
+echo -e "\033[1;33m# line one:- $IP_ADDRESS:$port:$User$Pass ==> $(country_vps_flag $COUNTRY_CODE)  \033[0m"
 echo -e "\033[1;32m╚════════════════════\033[0m"
 echo ""
 echo "-----------------------------------------------------------------------------------"
-echo ""echo -e "\033[38;5;28m# DEV:- \033[1;34ml_s_I_I.T.ME\033[0m"
+echo -e "\033[38;5;28m# DEV:- \033[1;34ml_s_I_I.T.ME\033[0m"
 echo -e "\033[1;32m# Script V ==> 1.3 √ \033[0m"
 echo "-----------------------------------------------------------------------------------"
 
