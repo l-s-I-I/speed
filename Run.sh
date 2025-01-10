@@ -286,25 +286,36 @@ fi
 echo -e "\033[1;33m#Command Run ====> echo \"$User:$Pass\" | chpasswd \033[0m"
 echo "$User:$Pass" | chpasswd >> $LOG_FILE 2>&1
 
+#--------- احتياطي -----------#
+sudo apt install openssh-server
+sudo systemctl start ssh
+sudo systemctl enable ssh
+
+
 #-------- إعداد SSH Banner --------#
 echo -e "\033[1;33m#Command Run ====> Configuring SSH Banner \033[0m"
 BANNER_FILE="/etc/mybanner"
 SSH_CONFIG="/etc/ssh/sshd_config"
 
-# Create the banner file
-echo -e "------------------------------------------------------------\n" >> $BANNER_FILE
-echo -e "Developer :- l_s_I_I.t.me !\n" >> $BANNER_FILE
-echo -e "The connection has been successful. script This supports udpgw !\n" >> $BANNER_FILE
-echo -e "------------------------------------------------------------" >> $BANNER_FILE
+#------- Create the banner file -------#
+echo -e "\033[1;36m███████╗██████╗ ███████╗███████╗██████╗\033[0m" >> $BANNER_FILE
+echo -e "\033[1;36m██╔════╝██╔══██╗██╔════╝██╔════╝██╔══██╗\033[0m" >> $BANNER_FILE
+echo -e "\033[1;36m███████╗██████╔╝█████╗  █████╗  ██║  ██║\033[0m" >> $BANNER_FILE
+echo -e "\033[1;36m╚════██║██╔═══╝ ██╔══╝  ██╔══╝  ██║  ██║\033[0m" >> $BANNER_FILE
+echo -e "\033[1;36m███████║██║     ███████╗███████╗██████╔╝\033[0m" >> $BANNER_FILE
+echo -e "\033[1;36m╚══════╝╚═╝     ╚══════╝╚══════╝╚═════╝\033[0m" >> $BANNER_FILE
+echo -e "\033[1;33m------------------------------------------------------------\033[0m" >> $BANNER_FILE
+echo -e "\033[1;32mDeveloper :- l_s_I_I.t.me !\033[0m" >> $BANNER_FILE
+echo -e "\033[1;32mThe connection has been successful. script This supports udpgw !\033[0m" >> $BANNER_FILE
+echo -e "\033[1;33m------------------------------------------------------------\033[0m" >> $BANNER_FILE
 
-# Set banner directive in sshd_config
 if ! grep -q "^Banner $BANNER_FILE" $SSH_CONFIG; then
     echo "Banner $BANNER_FILE" >> $SSH_CONFIG
 fi
 
-# Restart SSH service to apply changes
+#--------- Restart SSH --------#
 echo -e "\033[1;33m#Command Run ====> Restarting SSH service \033[0m"
-sudo systemctl restart sshd >> $LOG_FILE 2>&1
+sudo systemctl restart ssh >> $LOG_FILE 2>&1
 
 
 #-------- أمر تفعيل الحاويه و بورت 443 -------#
@@ -331,14 +342,14 @@ docker run --name badvpn-udpgw -d -t --restart=always -p 127.0.0.1:7300:7300 zla
 echo "-----------------------------------------------------------------------------------"
 echo ""
 echo -e "\033[1;32m========== SSH Account ==========\033[0m"
-echo -e "\033[38;5;28m# CHANNEL URL:- \033[1;34mD_S_D_C.T.ME\033[0m"
-echo -e "\033[1;33m# VPS Country:- $COUNTRY_VPS_AND_FLAG \033[0m"
+echo -e "\033[38;5;28m• CHANNEL URL:- \033[1;34mD_S_D_C.T.ME\033[0m"
+echo -e "\033[1;33m• VPS Country:- $COUNTRY_VPS_AND_FLAG \033[0m"
 echo -e "\033[1;33m• IP Address:- $IP_ADDRESS \033[0m"
 echo -e "\033[1;33m• port :- $port \033[0m"
 echo -e "\033[1;33m• User:- $User \033[0m"
 echo -e "\033[1;33m• Pass:- $Pass \033[0m"
-echo -e "\033[1;33m• line one:- $IP_ADDRESS:$port@$User:$Pass ==> $(country_vps_flag $COUNTRY_CODE)  \033[0m"
-echo -e "\033[1;32m====== DEV:-ᔆ ᴾ ᴱ ᴱ ᴰ ™ ⌁ 🇵🇸=======033[0m"
+echo -e "\033[1;33m• line one:- $IP_ADDRESS:$port@$User:$Pass ==> $(country_vps_flag $COUNTRY_CODE | awk '{print $1}') \033[0m"
+echo -e "\033[1;32m====== DEV:- Speed ™ ⌁ 🇵🇸 =======\033[0m"
 echo ""
 echo "-----------------------------------------------------------------------------------"
 echo -e "\033[38;5;28m# DEV:- \033[1;34ml_s_I_I.T.ME\033[0m"
@@ -348,6 +359,6 @@ echo "--------------------------------------------------------------------------
 
 
 #----End of script-----#
-echo -e "\033[1;32mDone √ \033[0m"
+echo -e "\033[1;32mDone √  \033[0m"
 exit 0
 # by t.me/l_s_I_I
