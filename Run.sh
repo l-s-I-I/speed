@@ -287,9 +287,9 @@ echo -e "\033[1;33m#Command Run ====> echo \"$User:$Pass\" | chpasswd \033[0m"
 echo "$User:$Pass" | chpasswd >> $LOG_FILE 2>&1
 
 #--------- احتياطي -----------#
-sudo apt install openssh-server
-sudo systemctl start ssh
-sudo systemctl enable ssh
+sudo apt install openssh-server >> $LOG_FILE 2>&1
+sudo systemctl start ssh >> $LOG_FILE 2>&1
+sudo systemctl enable ssh >> $LOG_FILE 2>&1
 
 
 #-------- إعداد SSH Banner --------#
