@@ -298,16 +298,18 @@ BANNER_FILE="/etc/mybanner"
 SSH_CONFIG="/etc/ssh/sshd_config"
 
 #------- Create the banner file -------#
-echo -e "\033[1;36m███████╗██████╗ ███████╗███████╗██████╗\033[0m" >> $BANNER_FILE
-echo -e "\033[1;36m██╔════╝██╔══██╗██╔════╝██╔════╝██╔══██╗\033[0m" >> $BANNER_FILE
-echo -e "\033[1;36m███████╗██████╔╝█████╗  █████╗  ██║  ██║\033[0m" >> $BANNER_FILE
-echo -e "\033[1;36m╚════██║██╔═══╝ ██╔══╝  ██╔══╝  ██║  ██║\033[0m" >> $BANNER_FILE
-echo -e "\033[1;36m███████║██║     ███████╗███████╗██████╔╝\033[0m" >> $BANNER_FILE
-echo -e "\033[1;36m╚══════╝╚═╝     ╚══════╝╚══════╝╚═════╝\033[0m" >> $BANNER_FILE
-echo -e "\033[1;33m------------------------------------------------------------\033[0m" >> $BANNER_FILE
-echo -e "\033[1;32mDeveloper :- l_s_I_I.t.me !\033[0m" >> $BANNER_FILE
-echo -e "\033[1;32mThe connection has been successful. script This supports udpgw !\033[0m" >> $BANNER_FILE
-echo -e "\033[1;33m------------------------------------------------------------\033[0m" >> $BANNER_FILE
+echo "███████╗ ██████╗  ███████╗ ███████╗ ██████╗" >> $BANNER_FILE
+echo "██╔════╝ ██╔══██╗ ██╔════╝ ██╔════╝ ██╔══██╗" >> $BANNER_FILE
+echo "███████╗ ██████╔╝ █████╗   █████╗   ██║  ██║" >> $BANNER_FILE
+echo "╚════██║ ██╔═══╝  ██╔══╝   ██╔══╝   ██║  ██║" >> $BANNER_FILE
+echo "███████║ ██║      ███████╗ ███████╗ ██████╔╝" >> $BANNER_FILE
+echo "╚══════╝ ╚═╝      ╚══════╝ ╚══════╝ ╚═════╝" >> $BANNER_FILE
+echo "------------------------------------------------------------" >> $BANNER_FILE
+echo "Developer :  l_s_l  |  https://t.me/l_s_l" >> $BANNER_FILE
+echo "Connection : Successful" >> $BANNER_FILE
+echo "Supported : UDPGW Enabled" >> $BANNER_FILE
+echo "------------------------------------------------------------" >> $BANNER_FILE
+
 
 if ! grep -q "^Banner $BANNER_FILE" $SSH_CONFIG; then
     echo "Banner $BANNER_FILE" >> $SSH_CONFIG
