@@ -248,7 +248,7 @@ country_vps_flag() {
 COUNTRY_VPS_AND_FLAG=$(country_vps_flag $COUNTRY_CODE)
 
 echo -e "\033[1;32m##########################################################\033[0m"
-echo -e "\033[1;31m# This script support ptto 443 on vps one line Command ! #\033[0m"
+echo -e "\033[1;31m# This script support port 443 on vps one line Command ! #\033[0m"
 echo -e "\033[1;32m##########################################################\033[0m"
 echo "-----------------------------------------------------------------------------------"
 echo ""
