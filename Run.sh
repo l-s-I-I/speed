@@ -328,7 +328,8 @@ echo -e "\033[1;33m#Command Run ====> udocker --allow-root create --name=ub18x d
 udocker --allow-root create --name=ub18x dweomer/stunnel >> $LOG_FILE 2>&1
 
 echo -e "\033[1;33m#Command Run ====> udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=443 ub18x\033[0m"
-OUTPUT=$(udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=443 -p 443:443 -p 8080:8080 -p 70:70 -p 7070:7070 ub18x >> $LOG_FILE 2>&1 &)
+OUTPUT=$(udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=443 ub18x >> $LOG_FILE 2>&1 &)
+OUTPUT=$(udocker --allow-root run -e STUNNEL_SERVICE=ssh1 -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=8080 ub18x >> $LOG_FILE 2>&1 &)
 
 sleep 5
 
