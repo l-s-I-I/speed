@@ -332,9 +332,9 @@ OUTPUT=$(udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.
 
 sleep 5
 
-#------ أمر إضافي لدعم UDP عبر socat -------#
-echo -e "\033[1;33m#Command Run ====> docker run --name badvpn-udpgw -d -t --restart=always -p 127.0.0.1:7300:7300 zlainsama/badvpn-udpgw-docker \033[0m"
-docker run --name badvpn-udpgw -d -t --restart=always -p 127.0.0.1:7300:7300 zlainsama/badvpn-udpgw-docker >> $LOG_FILE 2>&1 &
+#------ أمر لدعم UDP -------#
+echo -e "\033[1;33m#Command Run ====> docker run --name badvpn-udpgw -d -t --restart=always -p 127.0.0.1:7300:7300 \033[0m"
+docker run -p 7300:7300 -d --restart always uglycat/badvpn-udpgw >> $LOG_FILE 2>&1 &
 
 
 echo "-----------------------------------------------------------------------------------"
