@@ -334,7 +334,7 @@ sleep 5
 
 #------ أمر لدعم UDP -------#
 echo -e "\033[1;33m#Command Run ====> docker run --name badvpn-udpgw -d -t --restart=always -p 127.0.0.1:7300:7300 \033[0m"
-docker run --name badvpn-udpgw -d -t --restart=always -p 127.0.0.1:7300:7300 zlainsama/badvpn-udpgw-docker badvpn-udpgw --max-clients 3000 >> $LOG_FILE 2>&1 &
+docker run --name badvpn-udpgw -d -t --restart=always -p 127.0.0.1:7300:7300 zlainsama/badvpn-udpgw-docker >> $LOG_FILE 2>&1 &
 
 
 echo -e "\033[1;33m#Command Run ====> badvpn-udpgw --max-clients 3000 \033[0m"
