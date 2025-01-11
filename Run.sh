@@ -329,6 +329,7 @@ udocker --allow-root create --name=ub18x dweomer/stunnel >> $LOG_FILE 2>&1
 
 echo -e "\033[1;33m#Command Run ====> udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=443 ub18x\033[0m"
 OUTPUT=$(udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=443 ub18x >> $LOG_FILE 2>&1 &)
+OUTPUT=$(udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=8080 ub18x >> $LOG_FILE 2>&1 &)
 
 sleep 5
 
@@ -336,8 +337,8 @@ sleep 5
 echo -e "\033[1;33m#Command Run ====> docker run --name badvpn-udpgw -d -t --restart=always -p 127.0.0.1:7300:7300 \033[0m"
 docker run --name badvpn-udpgw -d -t --restart=always -p 127.0.0.1:7300:7300 zlainsama/badvpn-udpgw-docker badvpn-udpgw --max-clients 3000 >> $LOG_FILE 2>&1 &
 
-echo -e "\033[1;33m#Command Run ====> badvpn-udpgw --max-clients 3000 \033[0m"
-docker exec -it badvpn-udpgw /bin/sh -c "badvpn-udpgw --max-clients 3000"
+echo -e "\033[1;33m#Command Run ====> badvpn-udpgw --max-clients 3000 \033[0m" >> $LOG_FILE 2>&1 &
+docker exec -it badvpn-udpgw /bin/sh -c "badvpn-udpgw --max-clients 3000" >> $LOG_FILE 2>&1 &
 
 
 
