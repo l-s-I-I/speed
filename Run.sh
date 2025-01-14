@@ -253,9 +253,7 @@ echo -e "\033[1;32m##########################################################\03
 echo -e "\033[1;31m# This script support port 443 on vps one line Command ! #\033[0m"
 echo -e "\033[1;32m##########################################################\033[0m"
 echo "-----------------------------------------------------------------------------------"
-echo ""
 echo -e "\033[1;32mStart √ \033[0m"
-echo ""
 echo "-----------------------------------------------------------------------------------"
 
 LOG_FILE="$(pwd)/log.txt"
@@ -332,8 +330,6 @@ udocker --allow-root create --name=ub18x dweomer/stunnel >> $LOG_FILE 2>&1
 echo -e "\033[1;33m#Command Run ====> udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=$port,$port1 ub18x\033[0m"
 OUTPUT=$(udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=$port ub18x >> $LOG_FILE 2>&1 &)
 OUTPUT=$(udocker --allow-root run -e STUNNEL_SERVICE=ssh1 -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=$port1 ub18x >> $LOG_FILE 2>&1 &)
-OUTPUT=$(udocker --allow-root run -e STUNNEL_SERVICE=ssh2 -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=30 ub18x >> $LOG_FILE 2>&1 &)
-
 
 sleep 5
 
@@ -342,11 +338,12 @@ echo -e "\033[1;33m#Command Run ====> docker run --name badvpn-udpgw -d -t --res
 docker run --name badvpn-udpgw -d -t --restart=always -p 127.0.0.1:7300:7300 zlainsama/badvpn-udpgw-docker >> $LOG_FILE 2>&1 &
 
 
-echo -e "\033[1;33m#Command Run ====> badvpn-udpgw --max-clients 3000 \033[0m"
-docker exec -d badvpn-udpgw /bin/sh -c "badvpn-udpgw --max-clients 3000" >> $LOG_FILE 2>&1 &
+echo -e "\033[1;33m#Command Run ====> badvpn-udpgw --max-clients 4096 \033[0m"
+docker exec -it badvpn-udpgw /bin/sh -c "badvpn-udpgw --max-clients 4096" >> $LOG_FILE 2>&1 &
 
 
-
+echo -e "\033[1;33m#Command Run ====> nano /etc/sysctl.conf \033[0m"
+SYSCTL_FILE="/etc/sysctl.conf"; MAX_RMEM=$(cat /proc/sys/net/core/rmem_max); MAX_WMEM=$(cat /proc/sys/net/core/wmem_max); MAX_RMEM_DEFAULT=$(cat /proc/sys/net/core/rmem_default); MAX_WMEM_DEFAULT=$(cat /proc/sys/net/core/wmem_default); [ "$MAX_RMEM" -lt 26214400 ] && MAX_RMEM=26214400; [ "$MAX_WMEM" -lt 26214400 ] && MAX_WMEM=26214400; [ "$MAX_RMEM_DEFAULT" -lt 26214400 ] && MAX_RMEM_DEFAULT=26214400; [ "$MAX_WMEM_DEFAULT" -lt 26214400 ] && MAX_WMEM_DEFAULT=26214400; echo -e "\n# إعدادات net.core\n" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; echo "net.core.rmem_max = $MAX_RMEM" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; echo "net.core.wmem_max = $MAX_WMEM" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; echo "net.core.rmem_default = $MAX_RMEM_DEFAULT" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; echo "net.core.wmem_default = $MAX_WMEM_DEFAULT" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; sysctl -p >>"$LOG_FILE" 2>&1; sysctl net.core.rmem_max >>"$LOG_FILE" 2>&1; sysctl net.core.wmem_max >>"$LOG_FILE" 2>&1; sysctl net.core.rmem_default >>"$LOG_FILE" 2>&1; sysctl net.core.wmem_default >>"$LOG_FILE" 2>&1
 
 echo "-----------------------------------------------------------------------------------"
 echo ""
@@ -370,9 +367,7 @@ echo "--------------------------------------------------------------------------
 
 #----End of script-----#
 echo "-----------------------------------------------------------------------------------"
-echo ""
 echo -e "\033[1;32mDone √  \033[0m"
-echo ""
 echo "-----------------------------------------------------------------------------------"
 
 exit 0
