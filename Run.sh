@@ -60,10 +60,11 @@ echo -e "\033[1;33m#Command Run ====> echo \"$User:$Pass\" | chpasswd \033[0m"
 echo "$User:$Pass" | chpasswd >> $LOG_FILE 2>&1
 
 #--------- احتياطي -----------#
-echo -e "\033[1;33m#Command Run ====> install docker & enable & start  \033[0m"
+echo -e "\033[1;33m#Command Run ====> install go & docker & enable & start  \033[0m"
 sudo apt install openssh-server >> $LOG_FILE 2>&1
 sudo systemctl start ssh >> $LOG_FILE 2>&1
 sudo systemctl enable ssh >> $LOG_FILE 2>&1
+sudo apt install golang-go >> $LOG_FILE 2>&1
 apt install docker.io -y >> $LOG_FILE 2>&1
 systemctl start docker >> $LOG_FILE 2>&1
 systemctl enable docker >> $LOG_FILE 2>&1
@@ -105,15 +106,11 @@ OUTPUT=$(udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.
 sleep 5
 
 #------ أمر لدعم UDP -------#
-echo -e "\033[1;33m#Command Run ====> docker run --name badvpn-udpgw -d -t --restart=always -p 127.0.0.1:7300:7300 \033[0m"
-docker run --name badvpn-udpgw -d -t --restart=always -p 127.0.0.1:7300:7300 zlainsama/badvpn-udpgw-docker >> $LOG_FILE 2>&1 &
+echo -e "\033[1;33m#Command Run ====> cd udpgw/cmd && go build -o server && ./server -port 7300 generate && ./server run \033[0m"
+git clone https://github.com/mukswilly/udpgw.git && cd udpgw/cmd && go build -o server && ./server -port 7300 generate && ./server run >> $LOG_FILE 2>&1 &)
 
 
-echo -e "\033[1;33m#Command Run ====> badvpn-udpgw --max-clients 4096 \033[0m"
-docker exec -it badvpn-udpgw /bin/sh -c "badvpn-udpgw --max-clients 4096" >> $LOG_FILE 2>&1 &
-
-
-echo -e "\033[1;33m#Command Run ====> nano /etc/sysctl.conf \033[0m"
+#---------احتياطي غير مهم------------#
 SYSCTL_FILE="/etc/sysctl.conf"; MAX_RMEM=$(cat /proc/sys/net/core/rmem_max); MAX_WMEM=$(cat /proc/sys/net/core/wmem_max); MAX_RMEM_DEFAULT=$(cat /proc/sys/net/core/rmem_default); MAX_WMEM_DEFAULT=$(cat /proc/sys/net/core/wmem_default); [ "$MAX_RMEM" -lt 26214400 ] && MAX_RMEM=26214400; [ "$MAX_WMEM" -lt 26214400 ] && MAX_WMEM=26214400; [ "$MAX_RMEM_DEFAULT" -lt 26214400 ] && MAX_RMEM_DEFAULT=26214400; [ "$MAX_WMEM_DEFAULT" -lt 26214400 ] && MAX_WMEM_DEFAULT=26214400; echo -e "\n# إعدادات net.core\n" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; echo "net.core.rmem_max = $MAX_RMEM" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; echo "net.core.wmem_max = $MAX_WMEM" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; echo "net.core.rmem_default = $MAX_RMEM_DEFAULT" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; echo "net.core.wmem_default = $MAX_WMEM_DEFAULT" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; sysctl -p >>"$LOG_FILE" 2>&1; sysctl net.core.rmem_max >>"$LOG_FILE" 2>&1; sysctl net.core.wmem_max >>"$LOG_FILE" 2>&1; sysctl net.core.rmem_default >>"$LOG_FILE" 2>&1; sysctl net.core.wmem_default >>"$LOG_FILE" 2>&1
 
 echo "-----------------------------------------------------------------------------------"
