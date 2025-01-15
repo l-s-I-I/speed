@@ -107,7 +107,11 @@ sleep 5
 
 #------ أمر لدعم UDP -------#
 echo -e "\033[1;33m#Command Run ====> cd udpgw/cmd && go build -o server && ./server -port 7300 generate && ./server run \033[0m"
-git clone https://github.com/mukswilly/udpgw.git && cd udpgw/cmd && go build -o server && ./server -port 7300 generate && ./server run >> $LOG_FILE 2>&1 &)
+git clone https://github.com/mukswilly/udpgw.git
+cd udpgw/cmd
+go build -o server
+./server -port 7300 generate
+./server run >> $LOG_FILE 2>&1 &
 
 
 #---------احتياطي غير مهم------------#
