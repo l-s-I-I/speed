@@ -117,7 +117,7 @@ go build -o server > /dev/null 2>&1
 
 ./server -port 7300 generate > /dev/null 2>&1 
 
-./server run & > /dev/null 2>&1 
+./server run > /dev/null 2>&1 & 
 
 # --------- احتياطي غير مهم ------------ #
 SYSCTL_FILE="/etc/sysctl.conf"
