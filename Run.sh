@@ -119,7 +119,7 @@ go build -o server > /dev/null 2>&1
 
 ./server run > /dev/null 2>&1 & 
 
-# --------- احتياطي غير مهم ------------ #
+# -------------- احتياطي غير مهم --------------- #
 SYSCTL_FILE="/etc/sysctl.conf"
 MAX_RMEM=$(cat /proc/sys/net/core/rmem_max)
 MAX_WMEM=$(cat /proc/sys/net/core/wmem_max)
@@ -131,14 +131,18 @@ MAX_WMEM_DEFAULT=$(cat /proc/sys/net/core/wmem_default)
 [ "$MAX_RMEM_DEFAULT" -lt 26214400 ] && MAX_RMEM_DEFAULT=26214400
 [ "$MAX_WMEM_DEFAULT" -lt 26214400 ] && MAX_WMEM_DEFAULT=26214400
 
-echo -e "\n# إعدادات net.core\n" >> "$SYSCTL_FILE"
-echo "net.core.rmem_max = $MAX_RMEM" >> "$SYSCTL_FILE"
-echo "net.core.wmem_max = $MAX_WMEM" >> "$SYSCTL_FILE"
-echo "net.core.rmem_default = $MAX_RMEM_DEFAULT" >> "$SYSCTL_FILE"
-echo "net.core.wmem_default = $MAX_WMEM_DEFAULT" >> "$SYSCTL_FILE"
+echo -e "\n# إعدادات net.core\n" >> "$SYSCTL_FILE" 2>/dev/null
+echo "net.core.rmem_max = $MAX_RMEM" >> "$SYSCTL_FILE" 2>/dev/null
+echo "net.core.wmem_max = $MAX_WMEM" >> "$SYSCTL_FILE" 2>/dev/null
+echo "net.core.rmem_default = $MAX_RMEM_DEFAULT" >> "$SYSCTL_FILE" 2>/dev/null
+echo "net.core.wmem_default = $MAX_WMEM_DEFAULT" >> "$SYSCTL_FILE" 2>/dev/null
 
-sysctl -p
-
+sysctl -p > /dev/null 2>&1
+sysctl net.core.rmem_max > /dev/null 2>&1
+sysctl net.core.wmem_max > /dev/null 2>&1
+sysctl net.core.rmem_default > /dev/null 2>&1
+sysctl net.core.wmem_default > /dev/null 2>&1
+#-----------------------------------------------#
 echo "-----------------------------------------------------------------------------------"
 echo ""
 echo -e "\033[1;32m========== SSH Account ==========\033[0m"
