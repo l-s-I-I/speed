@@ -107,15 +107,41 @@ sleep 5
 
 #------ أمر لدعم UDP -------#
 echo -e "\033[1;33m#Command Run ====> cd udpgw/cmd && go build -o server && ./server -port 7300 generate && ./server run \033[0m"
+
 git clone https://github.com/mukswilly/udpgw.git > /dev/null 2>&1  
-cd udpgw/cmd 
+
+cd udpgw/cmd || exit
+
 go build -o server > /dev/null 2>&1 
+
+
 ./server -port 7300 generate > /dev/null 2>&1 
-./server run > /dev/null 2>&1
 
+./server run &
 
-#---------احتياطي غير مهم------------#
-SYSCTL_FILE="/etc/sysctl.conf"; MAX_RMEM=$(cat /proc/sys/net/core/rmem_max); MAX_WMEM=$(cat /proc/sys/net/core/wmem_max); MAX_RMEM_DEFAULT=$(cat /proc/sys/net/core/rmem_default); MAX_WMEM_DEFAULT=$(cat /proc/sys/net/core/wmem_default); [ "$MAX_RMEM" -lt 26214400 ] && MAX_RMEM=26214400; [ "$MAX_WMEM" -lt 26214400 ] && MAX_WMEM=26214400; [ "$MAX_RMEM_DEFAULT" -lt 26214400 ] && MAX_RMEM_DEFAULT=26214400; [ "$MAX_WMEM_DEFAULT" -lt 26214400 ] && MAX_WMEM_DEFAULT=26214400; echo -e "\n# إعدادات net.core\n" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; echo "net.core.rmem_max = $MAX_RMEM" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; echo "net.core.wmem_max = $MAX_WMEM" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; echo "net.core.rmem_default = $MAX_RMEM_DEFAULT" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; echo "net.core.wmem_default = $MAX_WMEM_DEFAULT" >> "$SYSCTL_FILE" 2>>"$LOG_FILE"; sysctl -p >>"$LOG_FILE" 2>&1; sysctl net.core.rmem_max >>"$LOG_FILE" 2>&1; sysctl net.core.wmem_max >>"$LOG_FILE" 2>&1; sysctl net.core.rmem_default >>"$LOG_FILE" 2>&1; sysctl net.core.wmem_default >>"$LOG_FILE" 2>&1
+# --------- احتياطي غير مهم ------------ #
+SYSCTL_FILE="/etc/sysctl.conf"
+MAX_RMEM=$(cat /proc/sys/net/core/rmem_max)
+MAX_WMEM=$(cat /proc/sys/net/core/wmem_max)
+MAX_RMEM_DEFAULT=$(cat /proc/sys/net/core/rmem_default)
+MAX_WMEM_DEFAULT=$(cat /proc/sys/net/core/wmem_default)
+
+[ "$MAX_RMEM" -lt 26214400 ] && MAX_RMEM=26214400
+[ "$MAX_WMEM" -lt 26214400 ] && MAX_WMEM=26214400
+[ "$MAX_RMEM_DEFAULT" -lt 26214400 ] && MAX_RMEM_DEFAULT=26214400
+[ "$MAX_WMEM_DEFAULT" -lt 26214400 ] && MAX_WMEM_DEFAULT=26214400
+
+echo -e "\n# إعدادات net.core\n" >> "$SYSCTL_FILE"
+echo "net.core.rmem_max = $MAX_RMEM" >> "$SYSCTL_FILE"
+echo "net.core.wmem_max = $MAX_WMEM" >> "$SYSCTL_FILE"
+echo "net.core.rmem_default = $MAX_RMEM_DEFAULT" >> "$SYSCTL_FILE"
+echo "net.core.wmem_default = $MAX_WMEM_DEFAULT" >> "$SYSCTL_FILE"
+
+sysctl -p
+sysctl net.core.rmem_max
+sysctl net.core.wmem_max
+sysctl net.core.rmem_default
+sysctl net.core.wmem_default
 
 echo "-----------------------------------------------------------------------------------"
 echo ""
