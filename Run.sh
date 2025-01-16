@@ -25,7 +25,7 @@ echo -e "\033[1;32m##########################################################\03
 echo -e "\033[1;31m# This script support port 443 on vps one line Command ! #\033[0m"
 echo -e "\033[1;32m##########################################################\033[0m"
 echo "-----------------------------------------------------------------------------------"
-echo -e "\033[1;32m                 Start √ \033[0m"
+echo -e "\033[1;32m                                   Start √ \033[0m"
 echo "-----------------------------------------------------------------------------------"
 
 LOG_FILE="$(pwd)/log.txt"
@@ -117,7 +117,7 @@ go build -o server > /dev/null 2>&1
 
 ./server -port 7300 generate > /dev/null 2>&1 
 
-./server run &
+./server run & > /dev/null 2>&1 
 
 # --------- احتياطي غير مهم ------------ #
 SYSCTL_FILE="/etc/sysctl.conf"
@@ -138,10 +138,6 @@ echo "net.core.rmem_default = $MAX_RMEM_DEFAULT" >> "$SYSCTL_FILE"
 echo "net.core.wmem_default = $MAX_WMEM_DEFAULT" >> "$SYSCTL_FILE"
 
 sysctl -p
-sysctl net.core.rmem_max
-sysctl net.core.wmem_max
-sysctl net.core.rmem_default
-sysctl net.core.wmem_default
 
 echo "-----------------------------------------------------------------------------------"
 echo ""
@@ -165,7 +161,7 @@ echo "--------------------------------------------------------------------------
 
 #----End of script-----#
 echo "-----------------------------------------------------------------------------------"
-echo -e "\033[1;32m                Done √  \033[0m"
+echo -e "\033[1;32m                                  Done √  \033[0m"
 echo "-----------------------------------------------------------------------------------"
 
 exit 0
