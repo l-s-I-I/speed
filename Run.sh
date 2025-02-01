@@ -21,9 +21,9 @@ source Country.sh
 # Get full country name and flag using the country code
 COUNTRY_VPS_AND_FLAG=$(country_vps_flag $COUNTRY_CODE)
 
-echo -e "\033[1;32m##########################################################\033[0m"
-echo -e "\033[1;31m# This script support port 443 on vps one line Command ! #\033[0m"
-echo -e "\033[1;32m##########################################################\033[0m"
+echo -e "\033[1;32m##########################################################################\033[0m"
+echo -e "\033[1;31m#         This script support port 443 on vps one line Command !         #\033[0m"
+echo -e "\033[1;32m##########################################################################\033[0m"
 echo "-----------------------------------------------------------------------------------"
 echo -e "\033[1;32m                                   Start √ \033[0m"
 echo "-----------------------------------------------------------------------------------"
@@ -60,12 +60,10 @@ echo -e "\033[1;33m#Command Run ====> echo \"$User:$Pass\" | chpasswd \033[0m"
 echo "$User:$Pass" | chpasswd >> $LOG_FILE 2>&1
 
 #--------- احتياطي -----------#
-echo -e "\033[1;33m#Command Run ====> install go & docker & enable & start  \033[0m"
-sudo apt install openssh-server >> $LOG_FILE 2>&1
+echo -e "\033[1;33m#Command Run ====> install go & docker & enable & start > Wait  √ \033[0m"
+sudo apt install openssh-server golang-go docker.io -y >> $LOG_FILE 2>&1
 sudo systemctl start ssh >> $LOG_FILE 2>&1
 sudo systemctl enable ssh >> $LOG_FILE 2>&1
-sudo apt install golang-go >> $LOG_FILE 2>&1
-apt install docker.io -y >> $LOG_FILE 2>&1
 systemctl start docker >> $LOG_FILE 2>&1
 systemctl enable docker >> $LOG_FILE 2>&1
 
