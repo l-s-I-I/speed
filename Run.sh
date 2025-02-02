@@ -37,7 +37,7 @@ sudo apt install -y python3-venv socat >> $LOG_FILE 2>&1
 
 echo -e "\033[1;33m#Command Run ====> python3 -m venv myenv \033[0m"
 apt install -y python3.12-venv >> $LOG_FILE 2>&1
-python3 -m venv myenv >> $LOG_FILE 2>&1
+python3.12 -m venv myenv >> $LOG_FILE 2>&1
 source myenv/bin/activate >> $LOG_FILE 2>&1
 
 #----- تحديث النظاك & تثبيت بايثون والمكاتب ----- #
@@ -161,6 +161,7 @@ echo "--------------------------------------------------------------------------
 echo -e "\033[38;5;28m# DEV:- \033[1;34ml_s_I_I.T.ME\033[0m"
 echo -e "\033[1;32m# Script V ==> 5.0 √ \033[0m"
 echo "-----------------------------------------------------------------------------------"
+rm -rf Country.sh
 
 
 
