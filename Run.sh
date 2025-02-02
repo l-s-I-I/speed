@@ -109,7 +109,7 @@ echo -e "\033[1;33m#Command Run ====> cd udpgw/cmd && go build -o server && ./se
 
 git clone https://github.com/mukswilly/udpgw.git > /dev/null 2>&1  
 
-cd udpgw/cmd || exit
+cd udpgw/cmd 
 
 go build -o server > /dev/null 2>&1 
 
