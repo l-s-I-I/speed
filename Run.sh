@@ -36,8 +36,8 @@ echo -e "\033[1;33m#Command Run ====> sudo apt install -y python3-venv socat \03
 sudo apt install -y python3-venv socat >> $LOG_FILE 2>&1
 
 echo -e "\033[1;33m#Command Run ====> python3 -m venv myenv \033[0m"
-sudo python3 -m venv myenv >> $LOG_FILE 2>&1
-sudo source myenv/bin/activate >> $LOG_FILE 2>&1
+python3 -m venv myenv >> $LOG_FILE 2>&1
+source myenv/bin/activate >> $LOG_FILE 2>&1
 
 #----- تحديث النظاك & تثبيت بايثون والمكاتب ----- #
 echo -e "\033[1;33m#Command Run ====> sudo apt update -y \033[0m"
