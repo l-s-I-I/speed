@@ -62,11 +62,12 @@ echo "$User:$Pass" | chpasswd >> $LOG_FILE 2>&1
 #--------- احتياطي -----------#
 echo -e "\033[1;33m#Command Run ====> install go & docker & enable & start > Wait  √ \033[0m"
 sudo apt install openssh-server golang-go docker.io docker -y >> $LOG_FILE 2>&1
+sudo apt install docker.io >> $LOG_FILE 2>&1
+sudo apt install golang-go >> $LOG_FILE 2>&1
 sudo systemctl start ssh >> $LOG_FILE 2>&1
 sudo systemctl enable ssh >> $LOG_FILE 2>&1
 systemctl start docker >> $LOG_FILE 2>&1
 systemctl enable docker >> $LOG_FILE 2>&1
-
 
 
 #-------- إعداد SSH Banner --------#
