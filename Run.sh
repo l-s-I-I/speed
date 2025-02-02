@@ -25,7 +25,7 @@ echo -e "\033[1;32m#############################################################
 echo -e "\033[1;31m#         This script support port 443 on vps one line Command !         #\033[0m"
 echo -e "\033[1;32m##########################################################################\033[0m"
 echo "--------------------------------------------------------------------------"
-echo -e "\033[1;32m                         Start √ \033[0m"
+echo -e "\033[1;32m                             Start √ \033[0m"
 echo "--------------------------------------------------------------------------"
 
 LOG_FILE="$(pwd)/log.txt"
@@ -61,8 +61,7 @@ echo "$User:$Pass" | chpasswd >> $LOG_FILE 2>&1
 
 #--------- احتياطي -----------#
 echo -e "\033[1;33m#Command Run ====> install go & docker & enable & start > Wait  √ \033[0m"
-sudo apt install openssh-server golang-go docker.io docker -y >> $LOG_FILE 2>&1
-sudo apt install docker.io >> $LOG_FILE 2>&1
+sudo apt install openssh-server golang-go >> $LOG_FILE 2>&1
 sudo apt install golang-go >> $LOG_FILE 2>&1
 sudo systemctl start ssh >> $LOG_FILE 2>&1
 sudo systemctl enable ssh >> $LOG_FILE 2>&1
