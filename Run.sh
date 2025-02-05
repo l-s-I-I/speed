@@ -38,6 +38,7 @@ sudo apt update -y >> $LOG_FILE 2>&1
 #-------- البيه االافتراضيه --------#
 echo -e "\033[1;33m# Run ====> sudo apt install -y python3-venv socat \033[0m"
 sudo apt install -y python3.12-dev libpython3.12-dev socat >> $LOG_FILE 2>&1
+sudo apt install -y git >> $LOG_FILE 2>&1
 
 echo -e "\033[1;33m# Run ====> python3 -m venv myenv \033[0m"
 python3.12 -m venv myenv >> $LOG_FILE 2>&1
