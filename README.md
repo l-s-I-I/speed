@@ -28,7 +28,7 @@ bash <(curl -s https://raw.githubusercontent.com/l-s-I-I/speed/main/Run.sh)
 ---
 
 ### 🌐 Get in Touch
-[Join Telegram Channel](https://t.me/l_s_I_I)
+[Join Telegram Channel](https://t.me/D_S_D_C)
 
 ---
 
