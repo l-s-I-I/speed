@@ -3,8 +3,7 @@
 # الإصدار :- v1 
 
 # الأمر الذي ستستخدمه :-
-```bash
-bash <(curl -s https://raw.githubusercontent.com/l-s-I-I/speed/main/Run.sh)
+```bash <(curl -s https://raw.githubusercontent.com/l-s-I-I/speed/main/Run.sh)
 ```
 
 ---
