@@ -20,57 +20,105 @@ source Country.sh
 
 COUNTRY_VPS_AND_FLAG=$(country_vps_flag $COUNTRY_CODE)
 
+
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    case "$ID" in
+        ubuntu|debian|kali) 
+            PKG="apt"
+            CMD="apt install -y"
+            ;;
+        fedora|rhel|centos|rocky|almalinux|cloudlinux) 
+            PKG="dnf"
+            CMD="dnf install -y"
+            ;;
+        arch)
+            PKG="pacman"
+            CMD="pacman -Sy --noconfirm"
+            ;;
+        alpine)
+            PKG="apk"
+            CMD="apk add"
+            ;;
+        opensuse*)
+            PKG="zypper"
+            CMD="zypper install -y"
+            ;;
+        *)
+            echo "Unknown distribution, please install manually."
+            exit 1
+            ;;
+    esac
+fi
+
 echo -e "\033[1;32m##########################################################################\033[0m"
 echo -e "\033[1;31m#         This script support port 443 on vps one line Command !         #\033[0m"
 echo -e "\033[1;32m##########################################################################\033[0m"
 echo "--------------------------------------------------------------------------"
-echo -e "\033[1;32m                             Start √ \033[0m"
+echo -e "\033[1;32m                               Start √ \033[0m"
 echo "--------------------------------------------------------------------------"
 
 LOG_FILE="$(pwd)/log.txt"
-#----- تحديث النظاك & اصلاح ! ----- #
-echo -e "\033[1;33m# Run ====> fixd & update \033[0m"
-sudo apt update --fix-missing >> $LOG_FILE 2>&1
-echo -e "\033[1;33m# Run ====> sudo apt update -y \033[0m"
-sudo apt update -y >> $LOG_FILE 2>&1
 
+#----- تحديث النظاك & اصلاح ! -----#
+echo -e "\033[1;33m# Run ====> update -->> fixd \033[0m"
+case "$PKG" in
+    apt)
+        sudo apt update --fix-missing >> $LOG_FILE 2>&1
+        sudo apt update -y >> $LOG_FILE 2>&1
+        ;;
+    dnf)
+        sudo dnf upgrade -y >> $LOG_FILE 2>&1
+        ;;
+    pacman)
+        sudo pacman -Syu --noconfirm >> $LOG_FILE 2>&1
+        ;;
+    apk)
+        sudo apk update >> $LOG_FILE 2>&1
+        ;;
+    zypper)
+        sudo zypper refresh >> $LOG_FILE 2>&1
+        ;;
+    *)
+        echo "Unknown distribution update command."
+        ;;
+esac
 
 #-------- البيه االافتراضيه --------#
-echo -e "\033[1;33m# Run ====> sudo apt install -y python3-venv socat \033[0m"
-sudo apt install -y python3.12-dev libpython3.12-dev socat >> $LOG_FILE 2>&1
-sudo apt install -y git >> $LOG_FILE 2>&1
+echo -e "\033[1;33m# Run ====> sudo $CMD python3-venv socat \033[0m"
+sudo $CMD python3.12-dev libpython3.12-dev socat >> $LOG_FILE 2>&1
+sudo $CMD git >> $LOG_FILE 2>&1
 
 echo -e "\033[1;33m# Run ====> python3 -m venv myenv \033[0m"
 python3.12 -m venv myenv >> $LOG_FILE 2>&1
 source myenv/bin/activate >> $LOG_FILE 2>&1
 
-echo -e "\033[1;33m# Run ====> sudo apt install -y python3-pip \033[0m"
-sudo apt install -y python3-pip >> $LOG_FILE 2>&1
+echo -e "\033[1;33m# Run ====> sudo $CMD python3-pip \033[0m"
+sudo $CMD python3-pip >> $LOG_FILE 2>&1
 
 echo -e "\033[1;33m# Run ====> pip3 install udocker \033[0m"
 pip3 install udocker >> $LOG_FILE 2>&1
 #---- لول لازم الي تحت علشان لو البايثون فيها مشكله ال udocker تتثبت عافيه ----#
 pip3 install udocker --break-system-packages >> $LOG_FILE 2>&1
 
-#------ إنشاء مستخدم باسم "telegram" فقط إذا لم يكن موجوداً ----#
-if ! id "$User" &>/dev/null; then
-    echo -e "\033[1;33m# Run ====> adduser --disabled-password --gecos \"\" $User \033[0m"
-    adduser --disabled-password --gecos "" $User >> $LOG_FILE 2>&1
-fi
 
-#---- عمل كلمه السر d_s_d_c ----#
-echo -e "\033[1;33m# Run ====> echo \"$User:$Pass\" | chpasswd \033[0m"
-echo "$User:$Pass" | chpasswd >> $LOG_FILE 2>&1
+echo -e "\033[1;33m# Run ====> Adding user $User & chpasswd \033[0m"
+        adduser --disabled-password --gecos "" "$User" >> "$LOG_FILE" 2>&1
+        useradd "$User" >> "$LOG_FILE" 2>&1
+    echo "$User:$Pass" | chpasswd >> "$LOG_FILE" 2>&1
+
+
 
 #--------- احتياطي -----------#
 echo -e "\033[1;33m# Run ====> install go & docker & enable & start > Wait  √ \033[0m"
-sudo apt install openssh-server golang-go >> $LOG_FILE 2>&1
-sudo apt install golang-go >> $LOG_FILE 2>&1
+sudo $PKG install openssh-server golang-go >> $LOG_FILE 2>&1
+sudo $PKG install golang-go >> $LOG_FILE 2>&1
+sudo $PKG install -y golang >> $LOG_FILE 2>&1
+sudo pacman -S go --noconfirm >> $LOG_FILE 2>&1
 sudo systemctl start ssh >> $LOG_FILE 2>&1
 sudo systemctl enable ssh >> $LOG_FILE 2>&1
 systemctl start docker >> $LOG_FILE 2>&1
 systemctl enable docker >> $LOG_FILE 2>&1
-
 
 #-------- إعداد SSH Banner --------#
 echo -e "\033[1;33m# Run ====> Configuring SSH Banner \033[0m"
@@ -80,41 +128,38 @@ SSH_CONFIG="/etc/ssh/sshd_config"
 #------- Create the banner file -------#
 echo "$Server_Message" > "$BANNER_FILE"
 
-
 if ! grep -q "^Banner $BANNER_FILE" $SSH_CONFIG; then
     echo "Banner $BANNER_FILE" >> $SSH_CONFIG
 fi
 
 #--------- Restart SSH --------#
 echo -e "\033[1;33m# Run ====> Restarting SSH service \033[0m"
-sudo systemctl restart ssh >> $LOG_FILE 2>&1
-
+sudo systemctl restart ssh >> $LOG_FILE 2>&1 
 
 #-------- أمر تفعيل الحاويه و بورت 443 -------#
 echo -e "\033[1;33m# Run ====> udocker --allow-root install \033[0m"
-udocker --allow-root install >> $LOG_FILE 2>&1
+udocker --allow-root install >> $LOG_FILE 2>&1 && \
 echo -e "\033[1;33m# Status: Installed udocker \033[0m" >> $LOG_FILE
 
 echo -e "\033[1;33m# Run ====> udocker --allow-root pull dweomer/stunnel \033[0m"
-udocker --allow-root pull dweomer/stunnel >> $LOG_FILE 2>&1
+udocker --allow-root pull dweomer/stunnel >> $LOG_FILE 2>&1 && \
 
 echo -e "\033[1;33m# Run ====> udocker --allow-root create --name=ub18x dweomer/stunnel \033[0m"
-udocker --allow-root create --name=ub18x dweomer/stunnel >> $LOG_FILE 2>&1
+udocker --allow-root create --name=ub18x dweomer/stunnel >> $LOG_FILE 2>&1 && \
 
-echo -e "\033[1;33m# Run ====> udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=$port,$port1 ub18x\033[0m"
+echo -e "\033[1;33m# Run ====> udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=$port ub18x\033[0m"
 OUTPUT=$(udocker --allow-root run -e STUNNEL_SERVICE=ssh -e STUNNEL_CONNECT=127.0.0.1:22 -e STUNNEL_ACCEPT=$port ub18x >> $LOG_FILE 2>&1 &)
 
 sleep 5
 
 #------ أمر لدعم UDP -------#
-echo -e "\033[1;33m# Run ====> cd udpgw/cmd && go build -o server && ./server -port 7300 generate && ./server run \033[0m"
+echo -e "\033[1;33m# Run ====> cd udpgw && go build -o server && ./server -port 7300 generate && ./server run \033[0m"
 
 git clone https://github.com/mukswilly/udpgw.git > /dev/null 2>&1  
 
 cd udpgw/cmd 
 
 go build -o server > /dev/null 2>&1 
-
 
 ./server -port 7300 generate > /dev/null 2>&1 
 
@@ -156,15 +201,13 @@ echo -e "\033[1;33m• User:- $User \033[0m"
 echo -e "\033[1;33m• Pass:- $Pass \033[0m"
 echo -e "\033[1;33m========== Http Custom ===========\033[0m"
 echo -e "\033[1;33m$IP_ADDRESS:$port@$User:$Pass —» $(country_vps_flag $COUNTRY_CODE | awk '{print $2}') \033[0m"
-echo -e "\033[1;32m==== github.com/l-s-I-I/speed =====\033[0m"
 echo ""
 echo "--------------------------------------------------------------------------"
 echo -e "\033[38;5;28m# DEV:- \033[1;34ml_s_I_I.T.ME\033[0m"
 echo -e "\033[1;32m# Script V ==> 6.0 √ \033[0m"
 echo "--------------------------------------------------------------------------"
 
-rm -rf Country.sh
-
+rm -f Country.sh
 
 #----End of script-----#
 echo "--------------------------------------------------------------------------"
@@ -172,4 +215,5 @@ echo -e "\033[1;32m                           Done √  \033[0m"
 echo "--------------------------------------------------------------------------"
 
 exit 0
+
 # by t.me/l_s_I_I
