@@ -29,7 +29,7 @@ echo "--------------------------------------------------------------------------
 
 LOG_FILE="$(pwd)/log.txt"
 #----- تحديث النظاك & اصلاح ! ----- #
-echo -e "\033[1;33m#Command Run ====> fixd & update \033[0m"
+echo -e "\033[1;33m# Run ====> fixd & update \033[0m"
 sudo apt update --fix-missing >> $LOG_FILE 2>&1
 echo -e "\033[1;33m# Run ====> sudo apt update -y \033[0m"
 sudo apt update -y >> $LOG_FILE 2>&1
