@@ -8,19 +8,20 @@
 bash <(curl -s https://raw.githubusercontent.com/l-s-I-I/speed/main/Run.sh)
 ```
 
-|    OS System     |    Status    | 
-| :------:         | :-:          | 
-| AlmaLinux        | ✅ Tested     |
-| Debian           | ✅ Tested     |
-| Rocky Linux      | ✅ Tested     |
-| Ubuntu           | ✅ Tested     |
-| Alpine Linux     | ❌ Network    |
-| Arch Linux       | ✅ Tested     |
-| CentOS           | ✅ Tested     |
-| CloudLinux       | ❌ Network    |
-| Fedora Cloud     | ✅ Tested     |
-| Kali Linux       | ✅ -\no UDPGW |
-| openSUSE         | ✅ Tested     |
+
+|    OS System     |       Status      | 
+| :--------------: | :---------------: | 
+| AlmaLinux        | ✅ Tested          |
+| Debian           | ✅ Tested          |
+| Rocky Linux      | ✅ Tested          |
+| Ubuntu           | ✅ Tested          |
+| Alpine Linux     | ❌ Network         |
+| Arch Linux       | ✅ Tested          |
+| CentOS           | ✅ Tested          |
+| CloudLinux       | ❌ Network         |
+| Fedora Cloud     | ✅ Tested          |
+| Kali Linux       | ✅ -\no UDPGW      |
+| openSUSE         | ✅ Tested          |
 
 
 
