@@ -17,10 +17,10 @@ bash <(curl -s https://raw.githubusercontent.com/l-s-I-I/speed/main/Run.sh)
 | **Debian**       |  **Tested** ✅     |
 | **Rocky Linux**  |  **Tested** ✅     |
 | **Ubuntu**       |  **Tested** ✅     |
-| **Alpine Linux** |  **Network** ❌    |
+| **Alpine Linux** |  **Not work** ❌   |
 | **Arch Linux**   |  **Tested** ✅     |
 | **CentOS**       |  **Tested** ✅     |
-| **CloudLinux**   |  **Network** ❌    |
+| **CloudLinux**   |  **Not work** ❌   |
 | **Fedora Cloud** |  **Tested** ✅     |
 | **Kali Linux**   |  **- No UDPGW** ✅ |
 | **openSUSE**     |  **Tested** ✅     |
