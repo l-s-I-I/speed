@@ -67,7 +67,7 @@ country_vps_flag() {
         "FO") echo "Faroe Islands 🇫🇴";;
         "FJ") echo "Fiji 🇫🇯";;
         "FI") echo "Finland 🇫🇮";;
-        "FR") echo "France 🇫🇷";;
+        "FR") echo "France speed 🇫🇷";;
         "GA") echo "Gabon 🇬🇦";;
         "GM") echo "Gambia 🇬🇲";;
         "GE") echo "Georgia 🇬🇪";;
