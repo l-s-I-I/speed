@@ -6,14 +6,17 @@ echo -e "\033[1;31m#         This script support port 443 on vps one line Comman
 echo -e "\033[1;32m##########################################################################\033[0m"
 echo ""
 #--------- info Variables ---------#
-read -r -p "Enter User (default: telegram): " input_user
+read -r -p $'\033[1;33mEnter User (default: telegram): \033[0m' input_user
 User=${input_user:-telegram}
+echo -e "\033[1;32m$User\033[0m"
 
-read -r -p "Enter Pass (default: d_s_d_c): " input_pass
+read -r -p $'\033[1;33mEnter Pass (default: d_s_d_c): \033[0m' input_pass
 Pass=${input_pass:-d_s_d_c}
+echo -e "\033[1;32m$Pass\033[0m"
 
-read -r -p "Enter Port (default: 443): " input_port
+read -r -p $'\033[1;33mEnter Port (default: 443): \033[0m' input_port
 port=${input_port:-443}
+echo -e "\033[1;32m$port\033[0m"
 
 echo ""
 echo "--------------------------------------------------------------------------"
