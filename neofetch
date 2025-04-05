@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#from ->> https://github.com/dylanaraps/neofetch
+# from ->> https://github.com/dylanaraps/neofetch
 # vim: noai:ts=4:sw=4:expandtab
 # shellcheck source=/dev/null
 # shellcheck disable=2009
