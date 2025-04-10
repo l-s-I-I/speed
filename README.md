@@ -25,10 +25,3 @@ bash <(curl -s https://raw.githubusercontent.com/l-s-I-I/speed/main/Run.sh)
 | **Kali Linux**   |  **- No UDPGW** ✅ |
 | **openSUSE**     |  **Tested** ✅     |
 
----
-
-### 🌐 Get in Touch
-[Join Telegram Channel](https://t.me/D_S_D_C)
-
----
-
