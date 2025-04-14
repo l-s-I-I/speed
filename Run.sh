@@ -11,7 +11,7 @@ read -r -p $'\033[1;33mEnter User (default: telegram): \033[0m' input_user
 User=${input_user:-telegram}
 
 read -r -p $'\033[1;33mEnter Pass (default: d_s_d_c): \033[0m' input_pass
-Pass=${input_pass:-d_s_d_c}
+Pass=${input_pass:-@d_s_d_c1}
 
 read -r -p $'\033[1;33mEnter Port (default: 443): \033[0m' input_port
 port=${input_port:-443}
