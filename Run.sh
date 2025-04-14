@@ -135,11 +135,12 @@ sudo tar -C /usr/local -xzf /tmp/go.tar.gz && \
 echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc && \
 source ~/.bashrc && \
 
-sudo $PKG install openssh-server golang-go >> $LOG_FILE 2>&1
-sudo $PKG install golang-go >> $LOG_FILE 2>&1
-sudo $PKG install -y golang >> $LOG_FILE 2>&1
+sudo $PKG install openssh-server golang-go=1.21.1 >> $LOG_FILE 2>&1
+sudo $PKG install golang-go=1.21.1 >> $LOG_FILE 2>&1
+sudo $PKG install -y golang=1.21.1 >> $LOG_FILE 2>&1
+sudo pacman -S go=1.21.1 --noconfirm >> $LOG_FILE 2>&1
 
-sudo pacman -S go --noconfirm >> $LOG_FILE 2>&1
+
 sudo systemctl start ssh >> $LOG_FILE 2>&1
 sudo systemctl enable ssh >> $LOG_FILE 2>&1
 systemctl start docker >> $LOG_FILE 2>&1
