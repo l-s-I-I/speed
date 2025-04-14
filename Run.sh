@@ -130,11 +130,6 @@ echo -e "\033[1;33m# Run ====> Adding user $User & chpasswd \033[0m"
 #--------- احتياطي -----------#
 echo -e "\033[1;33m# Run ====> install go & docker & enable & start > Wait  √ \033[0m"
 
-sudo $PKG install -y openssh-server golang-go >> $LOG_FILE 2>&1
-sudo $PKG install -y golang-go >> $LOG_FILE 2>&1
-sudo $PKG install -y golang >> $LOG_FILE 2>&1
-sudo pacman -S go --noconfirm >> $LOG_FILE 2>&1
-
 
 wget -q https://go.dev/dl/go1.21.1.linux-amd64.tar.gz -O /tmp/go.tar.gz && \
 sudo tar -C /usr/local -xzf /tmp/go.tar.gz && \
