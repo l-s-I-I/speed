@@ -137,8 +137,7 @@ echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc >> "$LOG_FILE" 2>&1
 echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.zshrc >> "$LOG_FILE" 2>&1
 export PATH=$PATH:/usr/local/go/bin >> "$LOG_FILE" 2>&1
 rm -f go1.21.1.linux-amd64.tar.gz >> "$LOG_FILE" 2>&1
-go version
-
+# go version
 
 sudo systemctl start ssh >> $LOG_FILE 2>&1
 sudo systemctl enable ssh >> $LOG_FILE 2>&1
