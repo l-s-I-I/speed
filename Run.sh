@@ -130,7 +130,7 @@ echo -e "\033[1;33m# Run ====> Adding user $User & chpasswd \033[0m"
 #--------- احتياطي -----------#
 echo -e "\033[1;33m# Run ====> install go & docker & enable & start > Wait  √ \033[0m"
 
-curl -LO https://go.dev/dl/go1.21.1.linux-amd64.tar.gz || wget https://go.dev/dl/go1.21.1.linux-amd64.tar.gz >> "$LOG_FILE" 2>&1
+curl -LO https://go.dev/dl/go1.21.1.linux-amd64.tar.gz >> "$LOG_FILE" 2>&1 || wget https://go.dev/dl/go1.21.1.linux-amd64.tar.gz >> "$LOG_FILE" 2>&1
 sudo rm -rf /usr/local/go >> "$LOG_FILE" 2>&1
 sudo tar -C /usr/local -xzf go1.21.1.linux-amd64.tar.gz >> "$LOG_FILE" 2>&1
 echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc >> "$LOG_FILE" 2>&1
