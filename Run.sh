@@ -129,14 +129,22 @@ echo -e "\033[1;33m# Run ====> Adding user $User & chpasswd \033[0m"
 
 #--------- احتياطي -----------#
 echo -e "\033[1;33m# Run ====> install go & docker & enable & start > Wait  √ \033[0m"
+
+wget -q https://go.dev/dl/go1.21.1.linux-amd64.tar.gz -O /tmp/go.tar.gz && \
+sudo tar -C /usr/local -xzf /tmp/go.tar.gz && \
+echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc && \
+source ~/.bashrc && \
+
 sudo $PKG install openssh-server golang-go >> $LOG_FILE 2>&1
 sudo $PKG install golang-go >> $LOG_FILE 2>&1
 sudo $PKG install -y golang >> $LOG_FILE 2>&1
+
 sudo pacman -S go --noconfirm >> $LOG_FILE 2>&1
 sudo systemctl start ssh >> $LOG_FILE 2>&1
 sudo systemctl enable ssh >> $LOG_FILE 2>&1
 systemctl start docker >> $LOG_FILE 2>&1
 systemctl enable docker >> $LOG_FILE 2>&1
+
 
 #-------- إعداد SSH Banner --------#
 echo -e "\033[1;33m# Run ====> Configuring SSH Banner \033[0m"
